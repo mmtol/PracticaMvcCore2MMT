@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using PracticaMvcCore2MMT.Extensions;
 using PracticaMvcCore2MMT.Models;
 using PracticaMvcCore2MMT.Repositories;
 using System.Security.Claims;
@@ -61,13 +62,31 @@ namespace PracticaMvcCore2MMT.Controllers
                     routeValues["genero"] = TempData["genero"].ToString();
                 }
 
-                if (routeValues.Count > 0)
+                if (controller == "Libros" && action == "CreateCompra")
                 {
-                    return RedirectToAction(action, controller, routeValues);
+                    List<Libros> libros = HttpContext.Session.GetObject<List<Libros>>("libros");
+                    int idFactura = await repo.GetMaxIdFacturaAsync();
+                    int cantidad = 1;
+                    DateTime fecha = DateTime.Now;
+
+                    foreach (Libros libro in libros)
+                    {
+                        await repo.CreatePedidoAsync(idFactura, fecha, libro.IdLibro, idUsuario, cantidad);
+                    }
+
+                    HttpContext.Session.Remove("libros");
+                    return RedirectToAction("VistaPedidosUsuario", "Libros");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Libros");
+                    if (routeValues.Count > 0)
+                    {
+                        return RedirectToAction(action, controller, routeValues);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Libros");
+                    }
                 }
             }
             else
@@ -81,7 +100,7 @@ namespace PracticaMvcCore2MMT.Controllers
         {
             await HttpContext.SignOutAsync
                 (CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Libros");
         }
     }
 }
