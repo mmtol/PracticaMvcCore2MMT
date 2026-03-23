@@ -1,0 +1,8 @@
+﻿@model Usuarios
+
+<h1>Username: @Context.User.Identity.Name</h1>
+
+<img src="~/images/@Model.Foto" style="width:100px"/>
+<p>Nombre: @Model.Nombre</p>
+<p>Apellido: @Model.Apellido</p>
+<p>Email: @Model.Email</p>

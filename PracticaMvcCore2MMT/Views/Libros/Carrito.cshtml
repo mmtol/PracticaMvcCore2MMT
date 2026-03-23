@@ -1,0 +1,39 @@
+﻿@model List<Libros>
+
+<h1>Carrito de la compra</h1>
+
+@if (Context.Session.GetString("libros") == null)
+{
+    <h2>No tienes nada en el carrito</h2>
+}
+else
+{
+    @if (Model != null)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Portada</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Libros libro in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/images/@libro.Portada" style="width:100px" />
+                        </td>
+                        <td>
+                            <a asp-controller="Libros" asp-action="Carrito" asp-route-ideliminar="@libro.IdLibro">
+                                Quitar del carrito
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <a asp-controller="Libros" asp-action="CreateCompra">Finalizar Compra</a>
+}

@@ -1,0 +1,23 @@
+﻿@model List<Libros>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Portada</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Libros libro in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/images/@libro.Portada" style="width:100px" />
+                </td>
+                <td>
+                    <a asp-controller="Libros" asp-action="Details" asp-route-idlibro="@libro.IdLibro">@libro.Titulo</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
