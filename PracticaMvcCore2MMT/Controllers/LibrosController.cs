@@ -16,7 +16,6 @@ namespace PracticaMvcCore2MMT.Controllers
             this.repo = repo;
         }
 
-        [AuthorizeUsuariosAttribute]
         public async Task<IActionResult> Index(int? genero, int? idlibro)
         {
             if (idlibro != null)
@@ -84,6 +83,7 @@ namespace PracticaMvcCore2MMT.Controllers
             }
         }
 
+        [AuthorizeUsuariosAttribute]
         public async Task<IActionResult> CreateCompra()
         {
             List<Libros> libros = HttpContext.Session.GetObject<List<Libros>>("libros");

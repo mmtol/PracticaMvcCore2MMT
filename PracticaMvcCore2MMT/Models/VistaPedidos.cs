@@ -8,7 +8,7 @@ namespace PracticaMvcCore2MMT.Models
     {
         [Key]
         [Column("IDVISTAPEDIDOS")]
-        public int IdVista { get; set; }
+        public long IdVista { get; set; }
 
         [Column("IdUsuario")]
         public int IdUsuario { get; set; }
@@ -21,14 +21,14 @@ namespace PracticaMvcCore2MMT.Models
         [Column("Titulo")]
         public string Titulo { get; set; }
         [Column("Precio")]
-        public long Precio { get; set; }
+        public int Precio { get; set; }
         [Column("Portada")]
         public string Portada { get; set; }
         [Column("FECHA")]
         public DateTime Fecha { get; set; }
 
         [Column("PRECIOFINAL")]
-        public long PrecioFinal { get; set; }
+        public int PrecioFinal { get; set; }
 
     }
 }

@@ -1,29 +1,41 @@
-﻿﻿@if (!Context.User.Identity.IsAuthenticated)
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Usuario" asp-action="Perfil">
-            Login
-        </a>
-    </li>
+﻿@{
+    List<Libros> libros = Context.Session.GetObject<List<Libros>>("libros");
 }
-else
-{
-    <ul>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Managed" asp-action="Logout">
-                Logout
-                <span>@Context.User.Identity.Name</span>
+
+<ul>
+    ﻿@if (!Context.User.Identity.IsAuthenticated)
+    {
+        <li>
+            <a class="nav-link text-dark" asp-controller="Usuario" asp-action="Perfil">
+                Login
             </a>
         </li>
-        <li class="nav-item">
+    }
+    else
+    {
+        <li>
+            <a class="nav-link text-dark" asp-controller="Managed" asp-action="Logout">
+                Logout
+            <span>@Context.User.Identity.Name</span>
+            </a>
+        </li>
+
+        <li>
             <a class="nav-link text-dark" asp-controller="Usuario" asp-action="Perfil">
                 Perfil
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Libros" asp-action="Carrito">
-                CANTIDAD!!!
-            </a>
+
+        <li>
+            @if (libros != null)
+            {
+                <a class="nav-link text-dark" asp-controller="Libros" asp-action="Carrito">Libros: @libros.Count()</a>
+            }
+            else
+            {
+                <a class="nav-link text-dark" asp-controller="Libros" asp-action="Carrito">Libros: 0</a>
+            }
         </li>
-    </ul>
-}
+    }
+</ul>
+

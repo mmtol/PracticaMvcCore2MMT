@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PracticaMvcCore2MMT.Filter;
 using PracticaMvcCore2MMT.Models;
 using PracticaMvcCore2MMT.Repositories;
 
@@ -14,7 +13,6 @@ namespace PracticaMvcCore2MMT.ViewComponents
             this.repo = repo;
         }
 
-        [AuthorizeUsuariosAttribute]
         public async Task<IViewComponentResult> InvokeAsync()
         {
             List<Generos> generos = await repo.GetGenerosAsync();
